@@ -7,6 +7,7 @@ import android.util.Log;
 
 public class MainActivity extends ActionBarActivity {
 
+    Integer counter = 0;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -21,9 +22,18 @@ public class MainActivity extends ActionBarActivity {
     }
 
     @Override
+    protected void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
+        outState.putInt("counter", counter);
+        Log.d("chi6rag", "onSaveInstanceState is called");
+    }
+
+    @Override
     protected void onResume() {
         super.onResume();
+        counter+=1;
         Log.d("chi6rag", "onResume was called");
+        Log.d("chi6rag", "The app is viewed " + counter + " times");
     }
 
     @Override
@@ -45,10 +55,16 @@ public class MainActivity extends ActionBarActivity {
     }
 
     @Override
+    protected void onRestoreInstanceState(Bundle savedInstanceState) {
+        super.onRestoreInstanceState(savedInstanceState);
+        Log.d("chi6rag", "onRestoreInstanceState is called");
+        counter = savedInstanceState.getInt("counter");
+    }
+
+    @Override
     protected void onDestroy() {
         super.onDestroy();
         Log.d("chi6rag", "onDestroy was called");
     }
-
 
 }
